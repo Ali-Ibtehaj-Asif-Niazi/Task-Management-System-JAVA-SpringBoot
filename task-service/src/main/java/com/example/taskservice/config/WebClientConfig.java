@@ -1,4 +1,4 @@
-package com.example.projectservice.config;
+package com.example.taskservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
