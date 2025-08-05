@@ -1,0 +1,61 @@
+.projectList {
+  text-align: left;
+}
+
+.projectItem {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.projectHeader {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projectName {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.taskList {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.taskItem {
+  margin-bottom: 5px;
+}
+
+.createTaskForm {
+  margin-top: 15px;
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.createTaskForm input,
+.createTaskForm textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.createTaskForm button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.createTaskForm button:hover {
+  background-color: #218838;
+}

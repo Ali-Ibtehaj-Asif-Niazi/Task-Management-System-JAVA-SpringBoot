@@ -57,4 +57,8 @@ public class TaskService {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
+
+    public List<Task> getTasksByProjectId(String projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.userservice.controller;
 
-import com.example.userservice.model.User;
 import com.example.userservice.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

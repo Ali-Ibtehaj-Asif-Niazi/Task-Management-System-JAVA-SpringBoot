@@ -1,15 +1,18 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useApi } from "../api";
 import { AuthContext } from "../context/AuthContext";
 import styles from "./CreateProject.module.css";
 
 export default function CreateProject() {
   const API = useApi();
-  const { user } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+  }, [user, isAuthenticated]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +25,8 @@ export default function CreateProject() {
       return;
     }
 
-    if (!user || !user._id) {
+    if (!user || !user.id) {  // Changed from user._id to user.id
+      console.error("User object:", user);
       setError("User information is missing. Please log in again.");
       setIsLoading(false);
       return;
@@ -32,13 +36,10 @@ export default function CreateProject() {
       const projectData = {
         name,
         description,
-        userId: user._id  // Use the user's ObjectId
+        userId: user.id  // Changed from user._id to user.id
       };
 
-      console.log("Sending project data:", projectData);
-
       const response = await API.post("/projects", projectData);
-      console.log("Project created:", response.data);
       alert("Project created successfully");
       setName("");
       setDescription("");
