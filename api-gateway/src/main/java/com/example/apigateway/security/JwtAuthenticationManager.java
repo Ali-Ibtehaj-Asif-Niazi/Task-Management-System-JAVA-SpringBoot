@@ -18,16 +18,12 @@ public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
         
         try {
             if (!JwtUtil.validateToken(authToken)) {
-                return Mono.error(new InvalidJwtException("Invalid JWT token"));
-            }
-            if (JwtUtil.isTokenExpired(authToken)) {
-                return Mono.error(new JwtExpiredException("JWT token has expired"));
+                return Mono.empty();
             }
             String username = JwtUtil.extractUsername(authToken);
-            // You might want to load user details from a database here
             return Mono.just(new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>()));
         } catch (Exception e) {
-            return Mono.error(new AuthenticationException("Authentication failed", e));
+            return Mono.empty();
         }
     }
 }
