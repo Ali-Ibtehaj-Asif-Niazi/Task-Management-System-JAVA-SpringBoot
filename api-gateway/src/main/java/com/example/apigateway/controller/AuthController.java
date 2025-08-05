@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,19 +21,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Mono<ResponseEntity<String>> login(@RequestBody Map<String, String> credentials) {
-        String email = credentials.get("email");
-
+    public Mono<ResponseEntity<?>> login(@RequestBody Map<String, String> credentials) {
         return webClientBuilder.build()
                 .post()
                 .uri("http://localhost:8080/auth/validate")
                 .bodyValue(credentials)
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(Map.class)
                 .map(validationResponse -> {
-                    if ("VALID".equals(validationResponse)) {
+                    if ("VALID".equals(validationResponse.get("status"))) {
+                        String email = (String) validationResponse.get("email");
                         String token = JwtUtil.generateToken(email);
-                        return ResponseEntity.ok(token);
+                        
+                        Map<String, Object> response = new HashMap<>(validationResponse);
+                        response.put("token", token);
+                        
+                        return ResponseEntity.ok(response);
                     } else {
                         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
                     }
