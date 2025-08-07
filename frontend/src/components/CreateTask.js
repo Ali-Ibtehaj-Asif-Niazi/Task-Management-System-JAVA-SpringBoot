@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useApi } from '../api';
 import { AuthContext } from '../context/AuthContext';
+import styles from "./CreateProject.module.css";
 
 const CreateTask = ({ projectId, onTaskCreated }) => {
   const [title, setTitle] = useState('');
